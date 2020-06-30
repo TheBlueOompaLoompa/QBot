@@ -39,6 +39,8 @@ Examples:
 
 ## Running the bot
 
+**Don't worry about the error that you get when it's first opened, thats just the computer using an invalid key**
+
 ### *Windows*
 
 1. Double click on the file named start.bat in the folder you just opened
@@ -52,3 +54,6 @@ Examples:
 
 1. Open up a terminal and cd into the directory that you opened in your file manager
 2. Type in the command `./start.sh` **If the command doesn't work use the command** `sudo chmod +x start.sh` then try `./start.sh` again
+
+## Configuring the bot
+1. Follow this guide to setup the bot and learn how to use the web interface
