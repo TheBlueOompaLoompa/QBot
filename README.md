@@ -4,7 +4,7 @@
 # Setup
 
 ## Installing the Dependencies
-**_"Install Node JS"_:**
+**_Install Node JS_:**
 
 ### *WINDOWS*
 1. Go to this link [Node JS Download](https://nodejs.org/en/download/)
