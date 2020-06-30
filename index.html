@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Helper Bot Config</title>
+    </head>
+    <body>
+        <table id="cmdTable" border="3">
+            <tr>
+              <th>Id</th>
+              <th>Command</th> 
+              <th>Response</th>
+            </tr>
+            !!!
+        </table>
+		<br>
+        <label for="rmcmd">Id of the command to remove: </label>
+        <input type="number" id="rmcmd" name="rmcmd"><br>
+
+        <script>
+			Number.prototype.clamp = function(min, max) {
+				return Math.min(Math.max(this, min), max);
+			};
+            var cmdTable = document.getElementById("cmdTable");
+            let cmds = [];
+            let resps = [];
+            var rowLength = cmdTable.rows.length;
+
+            //loops through rows    
+            for (i = 0; i < rowLength; i++){
+
+                //gets cells of current row
+				var oCells = cmdTable.rows.item(i).cells;
+				var oRow = cmdTable.rows[i];
+				oRow.setAttribute("id", "row" + (i) + "");
+                //gets amount of cells of current row
+                var cellLength = oCells.length;
+
+                //loops through each cell in current row
+                for(var j = 0; j < cellLength; j++){
+                    /* get your cell info here */
+                    if (j === 1){
+                        cmds.push(oCells.item(j).innerHTML);
+                    }
+
+                    if (j === 2){
+                        resps.push(oCells.item(j).innerHTML);
+                    }
+                }
+            }
+
+            function updateCmds(){
+                for (var i = 0; i < cmds.length; i++){
+                    cmds.pop();
+                }
+                for (var i = 0; i < resps.length; i++){
+                    resps.pop();
+                }
+                rowLength = cmdTable.rows.length;
+				
+                //loops through rows    
+                for (i = 0; i < rowLength; i++){
+					var oRow = cmdTable.rows[i];
+					oRow.setAttribute("id", "row" + (i) + "");
+
+                    //gets cells of current row
+                    var oCells = cmdTable.rows.item(i).cells;
+
+                    //gets amount of cells of current row
+                    var cellLength = oCells.length;
+
+                    //loops through each cell in current row
+                    for(var j = 0; j < cellLength; j++){
+                        /* get your cell info here */
+                        if (j === 1){
+                            cmds.push(oCells.item(j).innerHTML);
+                        }
+
+                        if (j === 2){
+                            resps.push(oCells.item(j).innerHTML);
+                        }
+                    }
+				}
+				
+            }
+
+            function addCommand(){
+				var row = cmdTable.insertRow(cmdTable.rows.length);
+				row.setAttribute("id", "row" + cmdTable.rows.length - 2 + "");
+            	var idCell = row.insertCell(0);
+            	var cmdCell = row.insertCell(1);
+            	var resCell = row.insertCell(2);
+            	idCell.innerHTML = cmdTable.rows.length - 2;
+            	cmdCell.innerHTML = "";
+            	cmdCell.setAttribute("contenteditable", "true");
+            	resCell.innerHTML = "";
+                resCell.setAttribute("contenteditable", "true");
+            }
+
+            function deleteRow(r) {
+				var rowId = parseInt(r)+1;
+				console.log("row"+rowId.toString());
+            	document.getElementById("row"+rowId.toString()).outerHTML="";
+            } 
+
+            function removeCommand(){
+				if( document.getElementById("rmcmd").value < 0){
+					alert("You can't remove commands with negative ids!");
+					return;
+				}
+				console.log(document.getElementById("rmcmd").value);
+				deleteRow(document.getElementById("rmcmd").value);
+            }
+        </script>
+
+        <button onclick="addCommand()">Add Command</button>
+        <button onclick="removeCommand()">Remove Command</button>
+		<br><br>
+        <form action="/update" method="POST">
+            <label for="apitoken">Api Token:</label>
+			<input type="text" id="apitoken" name="apitoken" value="***"><br>
+			<label for="prefix">Command Prefix: </label>
+			<input type="text" id="prefix" name="prefix" value="&&&"><br><br>
+            <input type='hidden' id='chats' name='chats' value='' />
+            <script>
+                function setChats(){
+					cmds = cmds.filter(a => a !== 'Command');
+					resps = resps.filter(a => a !== 'Response');
+					console.log(cmds);
+					console.log(resps);
+                    var chats = {
+                        cmd : cmds,
+                        res : resps
+                    };
+
+                    document.getElementById('chats').value = JSON.stringify(chats);
+                }
+            </script>
+            <input onclick="updateCmds(); setChats();" type="submit" value="Submit">
+        </form>
+        <script>
+
+        </script>
+    </body>
+</html>
