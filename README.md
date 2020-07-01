@@ -56,4 +56,4 @@ Examples:
 2. Type in the command `./start.sh` **If the command doesn't work use the command** `sudo chmod +x start.sh` then try `./start.sh` again
 
 ## Configuring the bot
-1. Follow this guide to setup the bot and learn how to use the web interface
+1. Follow this guide to setup the bot and learn how to use the web interface [https://www.youtube.com/watch?v=ioHqkddPLKk](https://www.youtube.com/watch?v=ioHqkddPLKk)
